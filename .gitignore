@@ -5,6 +5,8 @@ literature/
 *.yaml
 not-used/
 
+.Rhistory
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
