@@ -29,23 +29,6 @@ SOIL_DIM_NAME = str(os.environ['JULES_SOIL_DIM_NAME'])
 TILE_DIM_NAME = str(os.environ['JULES_TILE_DIM_NAME'])
 PFT_DIM_NAME = str(os.environ['JULES_PFT_DIM_NAME'])
 
-# # FOR TESTING:
-# START = 1980
-# END = 2018
-# YEARS = np.arange(START, END + 1)
-# SUITE = 'u-cd588'
-# ID_STEM = 'JULES_vn6.1'
-# PROFILE_NAME = 'daily_hydrology'
-# # RAHU:
-# GRIDFILE = '/home/sm510/projects/rahu/ancil/netcdf/jules_land_frac_ESA_rahu.nc'
-# MASK_VAR_NAME = 'land_frac'
-# DATADIR = '/home/sm510/JULES_output/u-cd588'
-# # GWM:
-# GRIDFILE = '/home/sm510/projects/ganges_water_machine/data/wfdei/ancils/WFD-EI-LandFraction2d_igp.nc'
-# MASK_VAR_NAME = 'lsmask'
-# DATADIR = '/home/sm510/JULES_output/u-cg201'
-# # OUTDIR = '../bin'
-
 # Open 2D land fraction file
 y = xarray.open_dataset(GRIDFILE)
 MASK = y[MASK_VAR_NAME].values
@@ -103,14 +86,13 @@ def convert_to_2d(x, variables):
         if (len(latv_ix) != 1) | (len(lonv_ix) != 1):
             raise ValueError("2")
         x_mask[latv_ix, lonv_ix] = 1        
-    # MASK = x_mask
     
     # Get IDs of cells in the 1D JULES output
     arr = np.arange(NLAT * NLON).reshape((NLAT, NLON))
     if NS_LAT:
         arr = np.flipud(arr)
     y_index = arr[x_mask > 0]
-    # y_index = arr[MASK > 0]    
+
     # Get coordinate pairs for grid
     lat_index = np.array([np.ones((NLON)) * i for i in range(NLAT)], dtype=int).flatten()
     lon_index = np.tile(np.arange(NLON), NLAT)    
@@ -246,44 +228,7 @@ def convert_to_2d(x, variables):
     ds = xarray.merge(xarr_list)
     return ds
 
-# @click.command()
-# @click.argument('config', type=click.Path(exists=True))
 def main():
-
-    # # with open(config, 'r') as stream:
-    # #     cfg = yaml.safe_load(stream)
-
-    # # START = cfg['simulation']['start_year']
-    # # END = cfg['simulation']['end_year']
-    # # YEARS = np.arange(START, END + 1)
-    # # SUITE = cfg['simulation']['suite']
-    # # ID_STEM = cfg['simulation']['id_stem']
-    # # PROFILE_NAME = cfg['simulation']['profile_name']
-    # # GRIDFILE = cfg['simulation']['gridfile']
-    # # DATADIR = cfg['simulation']['raw_output_directory']
-    # # OUTDIR = cfg['simulation']['output_directory']
-    
-    # # Open 2D land fraction file
-    # # LAND_FRAC_FN = '/home/sm510/projects/ganges_water_machine/data/wfdei/ancils/WFD-EI-LandFraction2d_igp.nc'
-    # # y = xarray.open_dataset(LAND_FRAC_FN)
-    # y = xarray.open_dataset(GRIDFILE)
-    # LAT = y['lat'].values[:]
-    # LON = y['lon'].values[:]
-    # # NLAT = len(LAT)
-    # # NLON = len(LON)
-    # # LAT_INDEX = pd.DataFrame(
-    # #     {'lat' : y['lat'].values[:],
-    # #      'LAT_INDEX' : [i for i in range(len(LAT))]
-    # #     }
-    # # )
-    # # LON_INDEX = pd.DataFrame(
-    # #     {'lon' : y['lon'].values[:],
-    # #      'LON_INDEX' : [i for i in range(len(LON))]
-    # #     }
-    # # )
-    # y.close()
-    
-    # for profile in PROFILE_NAMES:
     for yr in YEARS:
         print('Processing output profile ' + PROFILE_NAME + ' for year ' + str(yr) + '...')
         # Open JULES 1D output file

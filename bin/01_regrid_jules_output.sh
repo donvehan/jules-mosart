@@ -4,8 +4,6 @@ yaml() {
     python3 -c "import yaml;print(yaml.safe_load(open('$1'))$2)"
 }
 
-# CONFIG_FILE='my-config.yaml'
-# CONFIG_FILE='rahu-config.yaml'
 CONFIG_FILE="$1"
 
 export JULES_START_YEAR=$(yaml $CONFIG_FILE "['jules']['start_year']")

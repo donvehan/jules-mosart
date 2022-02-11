@@ -132,14 +132,6 @@ export GRASS_BATCH_JOB=${SRC_DIR}/grass_process_merit.sh
 grass76 ${LATLON_MAPSET}
 unset GRASS_BATCH_JOB
 
-
-
-
-
-
-
-
-
 # NOT USED:
 
 # # # =================================================================== #

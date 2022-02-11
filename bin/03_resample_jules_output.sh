@@ -55,6 +55,7 @@ conda activate mosart
 python ${SRC_DIR}/resample-jules-output.py
 conda deactivate 
 
+# NOT USED:
 
 # echo "gridtype=$GRIDTYPE
 # xsize=$XSIZE
