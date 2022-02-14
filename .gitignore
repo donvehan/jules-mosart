@@ -2,7 +2,6 @@ literature/
 *.tif
 *.vrt
 *.nc
-*.yaml
 not-used/
 
 .Rhistory

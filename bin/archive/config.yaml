@@ -1,0 +1,21 @@
+simulation:
+  name: rahu
+  start_date: 1981-05-01
+  end_date: 1981-05-31
+
+grid:
+  path: ../data/aux/mosart.nc
+  land:
+    path: ../data/aux/land.nc
+
+runoff:
+  read_from_file: true
+  path: ../data/aux/jules_runoff_1980_2018.nc
+
+water_management:
+  enabled: false
+  demand:
+    read_from_file: true
+    path: demand.nc
+  reservoirs:
+    path: reservoirs.nc

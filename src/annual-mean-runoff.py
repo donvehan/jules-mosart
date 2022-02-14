@@ -30,7 +30,8 @@ def main():
     # compute annual averages for hydrological variables
     jules_vars = [
         'surf_roff', 'sub_surf_roff', 'runoff',
-        'precip', 'ecan_gb', 'elake', 'esoil_gb',
+        # 'precip',
+        'ecan_gb', 'elake', 'esoil_gb',
         'fao_et0'
     ]        
     for var in jules_vars:
