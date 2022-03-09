@@ -67,7 +67,8 @@ then
     mkdir -p ${AUX_DATADIR}
 fi
 
-for VAR in elevtn flwdir outlat outlon rivlen rivslp rivwth uparea
+# for VAR in elevtn flwdir outlat outlon rivlen rivslp rivwth uparea
+for VAR in elevtn flwdir outlat outlon rivlen rivslp uparea
 do
     for RES in 30sec 05min 15min
     do	
