@@ -110,27 +110,27 @@ conda activate mosart
 python ${SRC_DIR}/make-river-basins.py
 conda deactivate 
 
-# =================================================================== #
-# Compute average slope in the coarse grid cell
-# =================================================================== #
+# # =================================================================== #
+# # Compute average slope in the coarse grid cell
+# # =================================================================== #
 
-export GDAL_DATA=$(/usr/bin/gdal-config --datadir)
+# export GDAL_DATA=$(/usr/bin/gdal-config --datadir)
 
-# Create location/mapset if they do not already exist
-if [[ ! -d ${LATLON_LOCATION} ]]
-then
-    grass -c -e epsg:4326 ${LATLON_LOCATION}
-fi
+# # Create location/mapset if they do not already exist
+# if [[ ! -d ${LATLON_LOCATION} ]]
+# then
+#     grass -c -e epsg:4326 ${LATLON_LOCATION}
+# fi
 
-if [[ ! -d ${LATLON_MAPSET} ]]
-then
-    grass -c -e ${LATLON_MAPSET}
-fi
+# if [[ ! -d ${LATLON_MAPSET} ]]
+# then
+#     grass -c -e ${LATLON_MAPSET}
+# fi
 
-chmod u+x ${SRC_DIR}/grass_process_merit.sh
-export GRASS_BATCH_JOB=${SRC_DIR}/grass_process_merit.sh
-grass76 ${LATLON_MAPSET}
-unset GRASS_BATCH_JOB
+# chmod u+x ${SRC_DIR}/grass_process_merit.sh
+# export GRASS_BATCH_JOB=${SRC_DIR}/grass_process_merit.sh
+# grass76 ${LATLON_MAPSET}
+# unset GRASS_BATCH_JOB
 
 # NOT USED:
 
