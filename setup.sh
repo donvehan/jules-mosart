@@ -1,5 +1,5 @@
 #!/bin/bash
-# Clara Gimeno Jésus, October 2022
+# Clara Gimeno Jésus, June 2022
 
 ## Bash script with instructions for setting up environments and directories before running JULES
 
