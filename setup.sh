@@ -12,7 +12,6 @@
 
 wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
 bash Anaconda3-2020.02-Linux-x86_64.sh
-
 conda install -c conda-forge pygraphviz # this solved some error messages
 
 # make sure you copy the file environment.yml from the git repo
@@ -23,9 +22,12 @@ conda env create -f environment-jules.yml
 # Once donwload complete, run
 conda activate jules
 
+# create a directory for local software:
+
+mkdir ~/local
+cd ~/local
+
 # Install Cylc    ## WB: can we use package cylc-flow?
-mkdir ~/.local
-cd ~/.local
 
 git clone https://github.com/cylc/cylc.git
 
@@ -35,7 +37,7 @@ git checkout tags/6.0.2
 cd ..
 export PATH=$HOME/.local/cylc/bin:$PATH
 cylc --version
-cd ~/.local/cylc
+cd ~/local/cylc
 make                            # WB: is install needed?? What does this do? Getting latex compilation errors
 cd ../..
 

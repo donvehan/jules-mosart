@@ -25,6 +25,7 @@ export PATH=$PATH:$HOME/.local/metomi-vms/usr/local/bin
 export GPG_TTY=$(tty)
 export GPG_AGENT_INFO=`gpgconf --list-dirs agent-socket | tr -d '\n' && echo -n ::`
 [[ "$-" != *i* ]] && return # Stop here if not running interactively
+
 # . mosrs-setup-gpg-agent
 
 ######## stuff to run JULES ########
