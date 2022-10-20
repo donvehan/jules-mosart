@@ -40,7 +40,7 @@ cp /home/clara/JULES_output/jules-mosart-main/jules-mosart/bin/aux ~/$HOME/jules
 ## Running mosart
 
 # Copy 
-cp /mnt/scratch/scratch/data/ForClara/config_rahu.yaml /$HOME/jules-mosart
+# cp /mnt/scratch/scratch/data/ForClara/config_rahu.yaml /$HOME/jules-mosart
 
 # Modify yaml files with appropriate paths
 
