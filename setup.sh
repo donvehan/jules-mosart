@@ -15,7 +15,7 @@ git clone https://github.com/cylc/cylc.git
 
 cd cylc
 git tag -l
-git checkout tags/t.6.0
+git checkout tags/6.0.2
 cd ..
 cylc --version
 cd ~/.local/cylc
@@ -28,7 +28,7 @@ cylc check-software
 
 ## Install Rose
 cd ~/.local
-git clone https://github.com/metome/rose.git
+git clone https://github.com/metomi/rose.git
 cd rose
 git tag -l
 git checkout tags/2018.02.0
@@ -44,7 +44,7 @@ prefix-username.u=yourusername
 [rose stem]
 automatic-options=SITE=jasmin" > rose.conf.txt
 
-cd ~/.local/rose/etc/rose.conf
+cd ~/.local/rose/etc/
 
 echo "[rosie-id]
 prefix-default=u
@@ -62,7 +62,7 @@ rosie hello
 
 ## Install FCM
 cd ~/.local
-git clone https://github.com/metome/fcm.git
+git clone https://github.com/metomi/fcm.git
 cd fcm
 git tag -l
 git checkout tags/2017.10.0
@@ -84,7 +84,7 @@ export PATH =$HOME/.local/fcm/bin:$PATH
 fcm --version
 
 # Set up keywords
-cd ~/.metomi/fcm/keyword.cfg
+cd ~/.metomi/fcm/
 echo "location{primary, type:svn}[jules.x] = https://code.metoffice.gov.uk/svn/jules/main
 browser.loc-tmpl[jules.x] = https://code.metoffice.gov.uk/trac/{1}/intertrac/source:/{2}{3}
 browser.comp-pat[jules.x] = (?msx-i:\A // [^/]+ /svn/ ([^/]+) /*(.*) \z)
@@ -93,13 +93,39 @@ location{primary, type:svn}[jules_doc.x] = https://code.metoffice.gov.uk/svn/jul
 browser.loc-tmpl[jules_doc.x] = https://code.metoffice.gov.uk/trac/{1}/intertrac/source:/{2}{3}
 browser.comp-pat[jules_doc.x] = (?msx-i:\A // [^/]+ /svn/ ([^/]+) /*(.*) \z)" >> keyword.cfg 
 
+## Caching your MOSRS password
+#Caching your MOSRS password may be problematic if your MOSRS password has special characters in it (eg "%","!" or "&")
+#Download two MOSRS utilities from [here]# (https://code.metoffice.gov.uk/trac/home/wiki/AuthenticationCaching/GpgAgent):
+#firefox https://code.metoffice.gov.uk/trac/home/raw-attachment/wiki/AuthenticationCaching/GpgAgent/mosrs-setup-gpg-agent
+#Put in your MOSRS password, save the file and close Firefox.
+#firefox https://code.metoffice.gov.uk/trac/home/raw-attachment/wiki/AuthenticationCaching/GpgAgent/mosrs-cache-password
+#Again, put in your MOSRS password, save the file and close Firefox.
+
+ mv ~/Downloads/mosrs-setup-gpg-agent ~/.local/mosrs-setup-gpg-agent
+
+   mv ~/Downloads/mosrs-cache-password ~/.local/mosrs-cache-password
+
+   export PATH=$HOME/.local:$PATH
+
+   chmod -R 755 ~/.local
+#Now activate
+. mosrs-setup-gpg-agent
+
+#To test this has worked correctly
+rosie hello
+#svn info --username=[yourusername] https://code.metoffice.gov.uk/svn/test
+
+#you will need to re-cache your MOSRS password every time you log in from now on.
+export PATH=$HOME/.local:$PATH
+[[ "$-" != *i* ]] && return
+. mosrs-setup-gpg-agent
+
+
 ## Install JULES
 mkdir ~/MODELS
-export M=$HOME/MODELS
-cd $M
 
 # Download a version of JULES
-cd $M
+cd ~/MODELS
 fcm co fcm:jules.x_tr@vn6.1 "jules-vn6.1"
 
 cd jules-vn6.1
