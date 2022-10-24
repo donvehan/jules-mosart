@@ -109,7 +109,7 @@ dependencies:
     - bmipy==2.0
     - bokeh==2.3.3
     - cython
-#    - cartopy==0.19.0
+      - cartopy==0.19.0
     - certifi==2021.5.30
     - cftime==1.5.0
     - chardet==4.0.0
@@ -197,3 +197,5 @@ dependencies:
     - xarray==0.18.2
     - xmltodict==0.12.0
     - zict==2.0.0
+
+prefix: /home/clara/anaconda3/envs/mosart

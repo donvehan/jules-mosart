@@ -32,6 +32,10 @@ cp /home/clara/JULES_output/jules-mosart-main/jules-mosart/bin/aux ~/$HOME/jules
 ./07_create_mosart_input.sh rahu-config.yaml
 
 ## Running mosart
+# Copy 
+# cp /mnt/scratch/scratch/data/ForClara/config_rahu.yaml /$HOME/jules-mosart
+
+# Modify yaml files with appropriate paths
 
 # Run python script
 ./mosart-rahu.py

@@ -33,12 +33,13 @@ git clone https://github.com/cylc/cylc.git
 
 cd cylc
 #git tag -l
+
 git checkout tags/6.0.2
 cd ..
 export PATH=$HOME/.local/cylc/bin:$PATH
 cylc --version
 cd ~/local/cylc
-make                            # WB: is install needed?? What does this do? Getting latex compilation errors
+# make                            # WB: is install needed?? What does this do? Getting latex compilation errors
 cd ../..
 
 export PATH=$HOME/.local/bin:$PATH
@@ -48,6 +49,7 @@ cylc check-software
 ## Install Rose
 cd ~/.local
 git clone git@github.com:metomi/rose.git
+
 cd rose
 #git tag -l
 git checkout tags/2018.02.0     # Clara and Simon use more recent version (2019.01)
@@ -118,11 +120,40 @@ location{primary, type:svn}[jules_doc.x] = https://code.metoffice.gov.uk/svn/jul
 browser.loc-tmpl[jules_doc.x] = https://code.metoffice.gov.uk/trac/{1}/intertrac/source:/{2}{3}
 browser.comp-pat[jules_doc.x] = (?msx-i:\A // [^/]+ /svn/ ([^/]+) /*(.*) \z)" >> keyword.cfg 
 
+## Caching your MOSRS password
+#Caching your MOSRS password may be problematic if your MOSRS password has special characters in it (eg "%","!" or "&")
+#Download two MOSRS utilities from [here]# (https://code.metoffice.gov.uk/trac/home/wiki/AuthenticationCaching/GpgAgent):
+#firefox https://code.metoffice.gov.uk/trac/home/raw-attachment/wiki/AuthenticationCaching/GpgAgent/mosrs-setup-gpg-agent
+#Put in your MOSRS password, save the file and close Firefox.
+#firefox https://code.metoffice.gov.uk/trac/home/raw-attachment/wiki/AuthenticationCaching/GpgAgent/mosrs-cache-password
+#Again, put in your MOSRS password, save the file and close Firefox.
+
+ mv ~/Downloads/mosrs-setup-gpg-agent ~/.local/mosrs-setup-gpg-agent
+
+   mv ~/Downloads/mosrs-cache-password ~/.local/mosrs-cache-password
+
+   export PATH=$HOME/.local:$PATH
+
+   chmod -R 755 ~/.local
+#Now activate
+. mosrs-setup-gpg-agent
+
+#To test this has worked correctly
+rosie hello
+#svn info --username=[yourusername] https://code.metoffice.gov.uk/svn/test
+
+#you will need to re-cache your MOSRS password every time you log in from now on.
+export PATH=$HOME/.local:$PATH
+[[ "$-" != *i* ]] && return
+. mosrs-setup-gpg-agent
+
+
 ## Install JULES
 mkdir ~/MODELS
 cd ~/MODELS
 
 # Download a version of JULES
+
 fcm co fcm:jules.x_tr@vn6.1 "jules-vn6.1"
 
 cd jules-vn6.1
