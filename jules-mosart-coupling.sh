@@ -3,12 +3,6 @@
 
 # Bash script to download and run scripts to couple JULES model runs and MOSART routing model
 
-# First step is to download the post-processing scripts from Simon
-# here we use the forked repository jules-mosart
-cd $HOME
-mkdir jules-mosart
-git clone https://github.com/claragimenojesus/jules-mosart.git
-
 cd jules-mosart/bin
 
 # Adding some geotiff files into your folder 
@@ -17,7 +11,7 @@ cp /home/clara/JULES_output/jules-mosart-main/jules-mosart/bin/aux ~/$HOME/jules
 # Before running, you can change the rahu-config.yaml file and change the output directory
 
 # Regrid jules output
-./01_regrit_jules_output.sh rahu-config.yaml
+./01_regrid_jules_output.sh rahu-config.yaml
 
 # Aggregate jules output
 ./02_aggregate_jules_output.sh rahu-config.yaml
@@ -38,7 +32,6 @@ cp /home/clara/JULES_output/jules-mosart-main/jules-mosart/bin/aux ~/$HOME/jules
 ./07_create_mosart_input.sh rahu-config.yaml
 
 ## Running mosart
-
 # Copy 
 # cp /mnt/scratch/scratch/data/ForClara/config_rahu.yaml /$HOME/jules-mosart
 

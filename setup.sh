@@ -8,31 +8,53 @@
 
 # Follow 'JULES from scratch' manual to install Cylc, Rose and FCM and cache your morsr password
 
-# Install Cylc
-mkdir ~/.local
-cd ~/.local
+## WB: seems like we need python2, so let's create a virtualenv first:
+
+wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+bash Anaconda3-2020.02-Linux-x86_64.sh
+conda install -c conda-forge pygraphviz # this solved some error messages
+
+# make sure you copy the file environment.yml from the git repo
+# note that we have two environments, one for jules and one for mosart!
+
+conda env create -f environment-jules.yml
+
+# Once donwload complete, run
+conda activate jules
+
+# create a directory for local software:
+
+mkdir ~/local
+cd ~/local
+
+# Install Cylc    ## WB: can we use package cylc-flow?
+
 git clone https://github.com/cylc/cylc.git
 
 cd cylc
-git tag -l
+#git tag -l
+
 git checkout tags/6.0.2
 cd ..
+export PATH=$HOME/.local/cylc/bin:$PATH
 cylc --version
-cd ~/.local/cylc
-make
+cd ~/local/cylc
+# make                            # WB: is install needed?? What does this do? Getting latex compilation errors
 cd ../..
 
-export PATH =$HOME/.local/cylc/bin:$PATH
-.~/.bashrc
+export PATH=$HOME/.local/bin:$PATH
+.~/.bashrc                      # WB: what is this for?
 cylc check-software
 
 ## Install Rose
 cd ~/.local
-git clone https://github.com/metomi/rose.git
+git clone git@github.com:metomi/rose.git
+
 cd rose
-git tag -l
-git checkout tags/2018.02.0
+#git tag -l
+git checkout tags/2018.02.0     # Clara and Simon use more recent version (2019.01)
 cd ..
+export PATH=$HOME/.local/rose/bin:$PATH
 rose --version
 cd ..
 mkdir ~/.metomi
@@ -53,20 +75,26 @@ prefix-location.u=https://code.metoffice.gov.uk/svn/roses-u
 prefix-web.u=https://code.metoffice.gov.uk/trac/roses-u/intertrac/source:
 prefix-ws.u=https://code.metoffice.gov.uk/rosie/u" >> rose.conf
 
-export PATH=$HOME/.local/rose/bin:$PATH
+
 .~/bashrc
 
 # Check the Rose installation and server links
+cd ~/.local/
+git clone git@github.com:metomi/metomi-vms.git
+export PATH=$PATH:$HOME/.local/metomi-vms/usr/local/bin     #WB: may need to be installed. Note: at the end because it also comes with cylc
+# note: you may need to enable gpg-preset-passphrase in .gnupg/gpg-agent.conf 
 mosrs-cache-password
-rosie hello
+rosie hello                                                 
 
 ## Install FCM
+## WB: the following code does not install fcm. Can be installed via apt install fcm
 cd ~/.local
 git clone https://github.com/metomi/fcm.git
 cd fcm
 git tag -l
 git checkout tags/2017.10.0
 cd ..
+export PATH=$HOME/.local/fcm/bin:$PATH
 fcm --version
 
 ls ~/.subversion/servers
@@ -77,7 +105,6 @@ metofficesharedrepos =code*.metoffice.gov.uk
 username =yourusername
 store-plaintext-passwords=no" >> servers.txt
 
-export PATH =$HOME/.local/fcm/bin:$PATH
 .~/.bashrc
 
 # Check FCM installation
@@ -123,33 +150,22 @@ export PATH=$HOME/.local:$PATH
 
 ## Install JULES
 mkdir ~/MODELS
+cd ~/MODELS
 
 # Download a version of JULES
-cd ~/MODELS
+
 fcm co fcm:jules.x_tr@vn6.1 "jules-vn6.1"
 
 cd jules-vn6.1
 export JULES_ROOT=$PWD
 echo $JULES_ROOT
 
+# note: JULES already comes with make.cfg. Why does this need to be overwritten?
+
 cp /home/clara/make.cfg ~/MODELS/jules-vn6.1/etc/fcm_make
 cd $JULES_ROOT
 fcm make -j 2 -f etc/fcm-make/make.cfg --new
 
-## Set up Anaconda on your home account
-cp /home/clara/ Anaconda3-2021.05-Linux-x86_64.sh ~/$HOME
-
-# Follow the steps here:https://docs.anaconda.com/anaconda/install/linux/  (from step 3) to install 
-source ~/.bashrc
-conda install -c conda-forge pygraphviz # this solved some error messages
-# Create a jules environment
-cp /home/clara/environment.yml ~/$HOME
-conda env create -f environment.yml
-
-# Some packages might cause problems, try commenting them out by opening the file with emacs then put # symbol at the start of the line
-
-# Once donwload complete, run
-conda activate jules
 rosie go
 
 # For rosie go, you will need to download XQuartz if using Mac or Xming for Windows which you need to run before running Putty

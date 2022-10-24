@@ -1,0 +1,47 @@
+
+# ######################################################### #
+# Additions to .bashrc file to run rose and JULES
+# ######################################################### #
+
+######## stuff to run rosie and other tools ########
+
+export PATH=$HOME/local:$PATH
+export PATH=$HOME/local/bin:$PATH
+
+# for Cylc
+export PATH=$HOME/local/cylc/bin:$PATH
+
+# for Rose
+export PATH=$HOME/local/rose/bin:$PATH
+export LD_LIBRARY_PATH=/lib/x86_64-linux-gnu:/usr/local/lib:$HOME/local/lib:$LD_LIBRARY_PATH
+
+# for FCM
+export PATH=$HOME/local/fcm/bin:$HOME/local:$PATH
+
+# WB: do we need anything from metomi-vms?
+export PATH=$PATH:$HOME/.local/metomi-vms/usr/local/bin
+
+# cache mosrs password
+export GPG_TTY=$(tty)
+export GPG_AGENT_INFO=`gpgconf --list-dirs agent-socket | tr -d '\n' && echo -n ::`
+[[ "$-" != *i* ]] && return # Stop here if not running interactively
+
+# . mosrs-setup-gpg-agent
+
+######## stuff to run JULES ########
+
+# zlib
+export PATH=/opt/zlib/:$PATH
+
+#openmpi
+export PATH=/opt/openmpi/bin:$PATH
+export LD_LIBRARY_PATH=/opt/openmpi/lib:$LD_LIBRARY_PATH
+
+#netcdf
+export PATH=/opt/netcdf_par/bin:$PATH
+export LD_LIBRARY_PATH=/opt/netcdf_par/lib:$LD_LIBRARY_PATH
+
+# JULES executables
+export PATH=~/MODELS/jules-vn6.1$/bin:$PATH
+export PATH=~/MODELS/jules-vn6.1$/build/bin:$PATH
+export PATH=~/MODELS/jules-vn6.1$/rose-stem/bin:$PATH
