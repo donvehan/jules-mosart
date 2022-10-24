@@ -39,12 +39,10 @@ cd ..
 export PATH=$HOME/.local/cylc/bin:$PATH
 cylc --version
 cd ~/local/cylc
-# make                            # WB: is install needed?? What does this do? Getting latex compilation errors
 cd ../..
 
 export PATH=$HOME/.local/bin:$PATH
-.~/.bashrc                      # WB: what is this for?
-cylc check-software
+cylc check-software 
 
 ## Install Rose
 cd ~/.local
@@ -54,7 +52,10 @@ cd rose
 #git tag -l
 git checkout tags/2018.02.0     # Clara and Simon use more recent version (2019.01)
 cd ..
+
 export PATH=$HOME/.local/rose/bin:$PATH
+chmod -R 755 ~./local
+
 rose --version
 cd ..
 mkdir ~/.metomi
@@ -95,6 +96,7 @@ git tag -l
 git checkout tags/2017.10.0
 cd ..
 export PATH=$HOME/.local/fcm/bin:$PATH
+chmod -R 755 ~./local
 fcm --version
 
 ls ~/.subversion/servers
