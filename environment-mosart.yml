@@ -197,4 +197,5 @@ dependencies:
     - xarray==0.18.2
     - xmltodict==0.12.0
     - zict==2.0.0
+
 prefix: /home/clara/anaconda3/envs/mosart
